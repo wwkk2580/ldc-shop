@@ -568,3 +568,64 @@ export async function cancelExpiredOrders(filters: { productId?: string; userId?
         throw error;
     }
 }
+
+// Customer Management
+export async function getUsers(page = 1, pageSize = 20, q = '') {
+    const offset = (page - 1) * pageSize
+    const search = q.trim()
+
+    try {
+        await backfillLoginUsersFromOrdersAndReviews();
+        await ensureLoginUsersTable();
+
+        let whereClause = undefined
+        if (search) {
+            const like = `%${search}%`
+            whereClause = or(
+                sql`${loginUsers.username} ILIKE ${like}`,
+                sql`${loginUsers.userId} ILIKE ${like}`
+            )
+        }
+
+        const itemsPromise = db.select({
+            userId: loginUsers.userId,
+            username: loginUsers.username,
+            points: loginUsers.points,
+            lastLoginAt: loginUsers.lastLoginAt,
+            createdAt: loginUsers.createdAt,
+            orderCount: sql<number>`count(${orders.orderId})::int`
+        })
+            .from(loginUsers)
+            .leftJoin(orders, eq(loginUsers.userId, orders.userId))
+            .where(whereClause)
+            .groupBy(loginUsers.userId)
+            .orderBy(desc(loginUsers.lastLoginAt))
+            .limit(pageSize)
+            .offset(offset)
+
+        const countQuery = db.select({ count: sql<number>`count(DISTINCT ${loginUsers.userId})::int` })
+            .from(loginUsers)
+            .where(whereClause)
+
+        const [items, totalRes] = await Promise.all([itemsPromise, countQuery])
+
+        return {
+            items,
+            total: totalRes[0]?.count || 0,
+            page,
+            pageSize
+        }
+    } catch (error: any) {
+        if (isMissingTable(error)) {
+            return { items: [], total: 0, page, pageSize }
+        }
+        throw error
+    }
+}
+
+export async function updateUserPoints(userId: string, points: number) {
+    await ensureLoginUsersTable();
+    await db.update(loginUsers)
+        .set({ points })
+        .where(eq(loginUsers.userId, userId));
+}

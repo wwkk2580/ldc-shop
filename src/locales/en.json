@@ -236,6 +236,20 @@
             "manageCards": "Cards",
             "confirmDelete": "Are you sure you want to delete this product?"
         },
+        "users": {
+            "title": "Customer Management",
+            "username": "Username",
+            "userId": "User ID",
+            "points": "Points",
+            "orders": "Orders",
+            "lastLogin": "Last Login",
+            "createdAt": "Joined",
+            "editPoints": "Edit Points",
+            "save": "Save",
+            "search": "Search users...",
+            "currentPoints": "Current Points",
+            "newPoints": "New Points"
+        },
         "orders": {
             "title": "Recent Orders",
             "orderId": "Order ID",

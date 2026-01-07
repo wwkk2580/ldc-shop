@@ -236,6 +236,20 @@
             "manageCards": "卡密",
             "confirmDelete": "确定要删除此商品吗？"
         },
+        "users": {
+            "title": "顾客管理",
+            "username": "用户名",
+            "userId": "用户ID",
+            "points": "积分",
+            "orders": "订单数",
+            "lastLogin": "最后登录",
+            "createdAt": "注册时间",
+            "editPoints": "修改积分",
+            "save": "保存",
+            "search": "搜索用户...",
+            "currentPoints": "当前积分",
+            "newPoints": "新积分"
+        },
         "orders": {
             "title": "最近订单",
             "orderId": "订单号",

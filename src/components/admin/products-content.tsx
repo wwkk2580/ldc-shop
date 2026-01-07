@@ -268,16 +268,18 @@ export function AdminProductsContent({ products, stats, shopName, visitorCount, 
                         <p className="text-xs text-muted-foreground">{stats.total.revenue.toFixed(0)} {t('common.credits')}</p>
                     </CardContent>
                 </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">{t('admin.stats.visitors')}</CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{visitorCount}</div>
-                        <p className="text-xs text-muted-foreground">{t('home.visitorCount', { count: visitorCount })}</p>
-                    </CardContent>
-                </Card>
+                <Link href="/admin/users" className="block">
+                    <Card className="hover:bg-accent/50 transition-colors">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">{t('admin.stats.visitors')}</CardTitle>
+                            <Users className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">{visitorCount}</div>
+                            <p className="text-xs text-muted-foreground">{t('home.visitorCount', { count: visitorCount })}</p>
+                        </CardContent>
+                    </Card>
+                </Link>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">{t('admin.stats.lowStock')}</CardTitle>
