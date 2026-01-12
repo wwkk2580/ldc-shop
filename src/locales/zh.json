@@ -79,7 +79,7 @@
         "outOfStockMessage": "该商品暂时缺货",
         "productNotFound": "商品未找到",
         "outOfStock": "商品已售罄",
-        "limitExceeded": "超出限购次数，您不能再购买此商品",
+        "limitExceeded": "超出限购数量，您不能再购买此商品",
         "stockLocked": "库存已被锁定，请稍后再试",
         "stockLockedMessage": "该商品库存已被锁定，如果用户五分钟内未支付，库存将自动释放，请稍后再来！",
         "userBlocked": "本商品对您已限购",
@@ -381,7 +381,7 @@
             "imageLabel": "图片地址",
             "imagePlaceholder": "https://...",
             "saveButton": "保存商品",
-            "purchaseLimitLabel": "限购次数",
+            "purchaseLimitLabel": "限购数量",
             "purchaseLimitPlaceholder": "不填或 0 为无限购",
             "saving": "保存中..."
         }
