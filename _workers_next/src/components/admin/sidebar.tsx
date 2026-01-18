@@ -3,7 +3,7 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
 import { Package, CreditCard, LogOut, Megaphone, Star, Download, Tags, RotateCcw, Users, Settings, QrCode, Bell, Menu } from "lucide-react"
 import { useI18n } from "@/lib/i18n/context"
 import { signOut } from "next-auth/react"
@@ -26,11 +26,13 @@ export function AdminSidebar({ username }: { username: string }) {
         )
     }
 
-    const SidebarContent = ({ closeOnNavigate = false }: { closeOnNavigate?: boolean }) => (
+    const SidebarContent = ({ closeOnNavigate = false, showTitle = true }: { closeOnNavigate?: boolean; showTitle?: boolean }) => (
         <>
-            <div className="flex items-center gap-2 font-bold text-xl px-2 mb-6">
-                <span>{t('common.adminTitle')}</span>
-            </div>
+            {showTitle && (
+                <div className="flex items-center gap-2 font-bold text-xl px-2 mb-6">
+                    <span>{t('common.adminTitle')}</span>
+                </div>
+            )}
             <nav className="flex flex-col gap-2">
                 <NavLink href="/admin/settings" icon={<Settings className="mr-2 h-4 w-4" />} label={t('common.storeSettings')} closeOnNavigate={closeOnNavigate} />
                 <NavLink href="/admin/products" icon={<Package className="mr-2 h-4 w-4" />} label={t('common.productManagement')} closeOnNavigate={closeOnNavigate} />
@@ -85,11 +87,8 @@ export function AdminSidebar({ username }: { username: string }) {
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" className="w-4/5 max-w-sm">
-                            <SheetHeader>
-                                <SheetTitle>{t('common.adminTitle')}</SheetTitle>
-                            </SheetHeader>
-                            <div className="flex flex-1 flex-col gap-4 px-4 pb-4">
-                                <SidebarContent closeOnNavigate />
+                            <div className="flex flex-1 flex-col gap-4 px-4 pb-4 pt-6">
+                                <SidebarContent closeOnNavigate showTitle={false} />
                             </div>
                         </SheetContent>
                     </Sheet>
@@ -97,7 +96,7 @@ export function AdminSidebar({ username }: { username: string }) {
             </div>
 
             {/* Desktop sidebar */}
-            <aside className="hidden md:flex md:w-64 bg-muted/40 border-r md:min-h-screen p-6 space-y-4">
+            <aside className="hidden md:flex md:flex-col md:w-64 bg-muted/40 border-r md:min-h-screen p-6 gap-4">
                 <SidebarContent />
             </aside>
         </>
